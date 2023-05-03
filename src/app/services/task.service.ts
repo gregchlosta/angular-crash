@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Task } from '../models/Task'
+import { CreateTask, Task } from '../models/Task'
 import { Observable } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
@@ -20,7 +20,7 @@ export class TaskService {
     return this.httpClient.get<Task[]>(this.apiUrl)
   }
 
-  addTask(task: Task): Observable<Task> {
+  addTask(task: CreateTask): Observable<Task> {
     return this.httpClient.post<Task>(this.apiUrl, task, this.httpOptions)
   }
 

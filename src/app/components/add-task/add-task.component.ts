@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { Task } from 'src/app/models/Task'
+import { CreateTask, Task } from 'src/app/models/Task'
 import { UiService } from 'src/app/services/ui.service'
 
 @Component({
@@ -22,7 +22,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   showAddTask: boolean = false
   subscription: Subscription | undefined
 
-  @Output() onAddTask = new EventEmitter<Task>()
+  @Output() onAddTask = new EventEmitter<CreateTask>()
 
   constructor(private uiService: UiService) {}
 
