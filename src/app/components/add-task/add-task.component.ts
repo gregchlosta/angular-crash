@@ -14,27 +14,16 @@ import { UiService } from 'src/app/services/ui.service'
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
 })
-export class AddTaskComponent implements OnInit, OnDestroy {
+export class AddTaskComponent {
+  constructor(private uiService: UiService) {}
+
   text: string = ''
   day: string = ''
   reminder: boolean = false
 
-  showAddTask: boolean = false
-  subscription: Subscription | undefined
+  showAddTask = this.uiService.showAddTask
 
   @Output() onAddTask = new EventEmitter<CreateTask>()
-
-  constructor(private uiService: UiService) {}
-
-  ngOnInit(): void {
-    this.subscription = this.uiService
-      .onToggle()
-      .subscribe((v) => (this.showAddTask = v))
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe()
-  }
 
   onSubmit() {
     if (!this.text) {

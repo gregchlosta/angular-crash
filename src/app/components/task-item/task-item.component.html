@@ -2,7 +2,7 @@
   *ngIf="task"
   [ngClass]="{ reminder: task.reminder }"
   class="task"
-  (click)="onToggle(task)"
+  (dblclick)="onToggle(task)"
 >
   <h3>
     {{ task.text }}
