@@ -1,12 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core'
-import { Subscription } from 'rxjs'
-import { CreateTask, Task } from 'src/app/models/Task'
+import { Component, EventEmitter, Output, inject, signal } from '@angular/core'
+import { CreateTask } from 'src/app/models/Task'
 import { UiService } from 'src/app/services/ui.service'
 
 @Component({
@@ -15,11 +8,11 @@ import { UiService } from 'src/app/services/ui.service'
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent {
-  constructor(private uiService: UiService) {}
+  text = signal<string>('')
+  day = signal<string>('')
+  reminder = signal<boolean>(false)
 
-  text: string = ''
-  day: string = ''
-  reminder: boolean = false
+  uiService = inject(UiService)
 
   showAddTask = this.uiService.showAddTask
 
@@ -32,13 +25,13 @@ export class AddTaskComponent {
     }
 
     this.onAddTask.emit({
-      text: this.text,
-      day: this.day,
-      reminder: this.reminder,
+      text: this.text(),
+      day: this.day(),
+      reminder: this.reminder(),
     })
 
-    this.text = ''
-    this.day = ''
-    this.reminder = false
+    this.text.set('')
+    this.day.set('')
+    this.reminder.set(false)
   }
 }

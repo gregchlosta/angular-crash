@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { Router } from '@angular/router'
 import { UiService } from 'src/app/services/ui.service'
 
@@ -8,9 +8,11 @@ import { UiService } from 'src/app/services/ui.service'
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private uiService: UiService, private router: Router) {}
+  title = signal('Task Tracker!')
 
-  title: string = 'Task Tracker!'
+  uiService = inject(UiService)
+  router = inject(Router)
+
   showAddTask = this.uiService.showAddTask
 
   toggleAddTask() {

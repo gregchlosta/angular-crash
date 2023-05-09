@@ -4,7 +4,8 @@
     <input
       type="text"
       name="text"
-      [(ngModel)]="text"
+      [ngModel]="text()"
+      (change)="text.set($any($event.target).value)"
       id="text"
       placeholder="Add Task"
     />
@@ -14,7 +15,8 @@
     <input
       type="text"
       name="day"
-      [(ngModel)]="day"
+      [ngModel]="day()"
+      (change)="day.set($any($event.target).value)"
       id="day"
       placeholder="Add Day & Time"
     />
@@ -24,7 +26,8 @@
     <input
       type="checkbox"
       name="reminder"
-      [(ngModel)]="reminder"
+      [ngModel]="reminder()"
+      (change)="reminder.set($any($event.target).value)"
       id="reminder"
     />
   </div>

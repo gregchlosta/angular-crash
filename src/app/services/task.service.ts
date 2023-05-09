@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core'
+import { Injectable, inject, signal } from '@angular/core'
 import { CreateTask, Task } from '../models/Task'
-import { Observable } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 @Injectable({
@@ -14,25 +13,38 @@ export class TaskService {
     }),
   }
 
-  constructor(private httpClient: HttpClient) {}
+  httpClient = inject(HttpClient)
 
-  getTasks(): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(this.apiUrl)
+  tasks = signal<Task[]>([])
+
+  private tasks$ = this.httpClient
+    .get<Task[]>(this.apiUrl)
+    .subscribe((v) => this.tasks.set(v))
+
+  addTask(task: CreateTask) {
+    this.httpClient
+      .post<Task>(this.apiUrl, task, this.httpOptions)
+      .subscribe((v) => this.tasks.update((prevValue) => [...prevValue, v]))
   }
 
-  addTask(task: CreateTask): Observable<Task> {
-    return this.httpClient.post<Task>(this.apiUrl, task, this.httpOptions)
+  updateTask(task: Task): void {
+    this.httpClient
+      .put<Task>(`${this.apiUrl}/${task.id}`, task, this.httpOptions)
+      .subscribe((newElement) =>
+        this.tasks.update((prevValue) => {
+          const i = prevValue.indexOf(task)
+          const newTasks = [...prevValue]
+          newTasks[i] = newElement
+          return newTasks
+        })
+      )
   }
 
-  updateTask(task: Task): Observable<Task> {
-    return this.httpClient.put<Task>(
-      `${this.apiUrl}/${task.id}`,
-      task,
-      this.httpOptions
-    )
-  }
-
-  deleteTask(id: number): Observable<Task> {
-    return this.httpClient.delete<Task>(`${this.apiUrl}/${id}`)
+  deleteTask(id: number): void {
+    this.httpClient
+      .delete<Task>(`${this.apiUrl}/${id}`)
+      .subscribe((v) =>
+        this.tasks.update((prevValue) => prevValue.filter((t) => t.id !== id))
+      )
   }
 }
