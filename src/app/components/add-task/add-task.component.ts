@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common'
 import { Component, EventEmitter, Output, inject, signal } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 import { CreateTask } from 'src/app/models/Task'
 import { UiService } from 'src/app/services/ui.service'
 
@@ -6,6 +8,8 @@ import { UiService } from 'src/app/services/ui.service'
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
 })
 export class AddTaskComponent {
   text = signal<string>('')

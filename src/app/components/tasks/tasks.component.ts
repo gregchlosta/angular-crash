@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common'
 import { Component, OnInit, Signal, inject } from '@angular/core'
 import { CreateTask, Task } from 'src/app/models/Task'
 import { TaskService } from 'src/app/services/task.service'
+import { AddTaskComponent } from '../add-task/add-task.component'
+import { TaskItemComponent } from '../task-item/task-item.component'
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css'],
+  standalone: true,
+  imports: [CommonModule, AddTaskComponent, TaskItemComponent],
 })
 export class TasksComponent {
   taskService = inject(TaskService)

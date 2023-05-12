@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common'
 import { Component, inject, signal } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { UiService } from 'src/app/services/ui.service'
+import { ButtonComponent } from '../button/button.component'
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  standalone: true,
+  imports: [CommonModule, ButtonComponent, RouterModule],
 })
 export class HeaderComponent {
   title = signal('Task Tracker!')

@@ -4,7 +4,7 @@
       "id": 3,
       "text": "Food Shopping",
       "day": "May 7th at 12:30pm",
-      "reminder": false
+      "reminder": true
     },
     {
       "text": "Awesome Task",
@@ -17,6 +17,12 @@
       "day": "May 6th at 2:30pm",
       "reminder": true,
       "id": 5
+    },
+    {
+      "text": "My new Task!22",
+      "day": "May 6th at 2:30pm",
+      "reminder": "on",
+      "id": 6
     }
   ]
 }
