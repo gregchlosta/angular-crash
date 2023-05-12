@@ -7,7 +7,6 @@ import { ButtonComponent } from '../button/button.component'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
   standalone: true,
   imports: [CommonModule, ButtonComponent, RouterModule],
 })
