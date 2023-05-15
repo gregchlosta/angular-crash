@@ -8,10 +8,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   imports: [CommonModule],
 })
 export class ButtonComponent {
-  @Input() text: string = ''
-  @Input() color: string = 'green'
+  @Input({ required: true }) text!: string
+  @Input({ required: true }) color!: string
 
-  @Output() btnClick = new EventEmitter()
+  @Output() btnClick = new EventEmitter<void>()
 
   onClick() {
     this.btnClick.emit()

@@ -11,7 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
   imports: [CommonModule, FontAwesomeModule],
 })
 export class TaskItemComponent {
-  @Input() task: Task | undefined
+  @Input({ required: true }) task!: Task
   @Output() onDeleteTask = new EventEmitter<Task>()
   @Output() onToggleTask = new EventEmitter<Task>()
 
