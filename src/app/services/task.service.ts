@@ -1,6 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core'
 import { CreateTask, Task } from '../models/Task'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { toObservable, toSignal } from '@angular/core/rxjs-interop'
+import { map, tap } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,9 @@ export class TaskService {
 
   private tasks$ = this.httpClient
     .get<Task[]>(this.apiUrl)
-    .subscribe((v) => this.tasks.set(v))
+    .pipe(tap((v) => this.tasks.set(v)))
+
+  private readOnlyTasks = toSignal(this.tasks$, { initialValue: [] as Task[] })
 
   addTask(task: CreateTask) {
     this.httpClient
